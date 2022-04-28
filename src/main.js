@@ -180,7 +180,7 @@ export class AwsV4Signer {
 
     const params = this.signQuery ? this.url.searchParams : this.headers
 
-    params.set('X-Amz-Date', this.datetime)
+    params.set('X-Osc-Date', this.datetime)
     if (this.sessionToken && !this.appendSessionToken) {
       params.set('X-Amz-Security-Token', this.sessionToken)
     }
@@ -198,13 +198,13 @@ export class AwsV4Signer {
       .map(header => header + ':' + (header === 'host' ? this.url.host : (this.headers.get(header) || '').replace(/\s+/g, ' ')))
       .join('\n')
 
-    this.credentialString = [this.datetime.slice(0, 8), this.region, this.service, 'aws4_request'].join('/')
+    this.credentialString = [this.datetime.slice(0, 8), this.region, this.service, 'osc4_request'].join('/')
 
     if (this.signQuery) {
       if (this.service === 's3' && !params.has('X-Amz-Expires')) {
         params.set('X-Amz-Expires', '86400') // 24 hours
       }
-      params.set('X-Amz-Algorithm', 'AWS4-HMAC-SHA256')
+      params.set('X-Amz-Algorithm', 'OSC4-HMAC-SHA256')
       params.set('X-Amz-Credential', this.accessKeyId + '/' + this.credentialString)
       params.set('X-Amz-SignedHeaders', this.signedHeaders)
     }
@@ -271,7 +271,7 @@ export class AwsV4Signer {
    */
   async authHeader() {
     return [
-      'AWS4-HMAC-SHA256 Credential=' + this.accessKeyId + '/' + this.credentialString,
+      'OSC4-HMAC-SHA256 Credential=' + this.accessKeyId + '/' + this.credentialString,
       'SignedHeaders=' + this.signedHeaders,
       'Signature=' + (await this.signature()),
     ].join(', ')
@@ -285,10 +285,10 @@ export class AwsV4Signer {
     const cacheKey = [this.secretAccessKey, date, this.region, this.service].join()
     let kCredentials = this.cache.get(cacheKey)
     if (!kCredentials) {
-      const kDate = await hmac('AWS4' + this.secretAccessKey, date)
+      const kDate = await hmac('OSC4' + this.secretAccessKey, date)
       const kRegion = await hmac(kDate, this.region)
       const kService = await hmac(kRegion, this.service)
-      kCredentials = await hmac(kService, 'aws4_request')
+      kCredentials = await hmac(kService, 'osc4_request')
       this.cache.set(cacheKey, kCredentials)
     }
     return buf2hex(await hmac(kCredentials, await this.stringToSign()))
@@ -299,7 +299,7 @@ export class AwsV4Signer {
    */
   async stringToSign() {
     return [
-      'AWS4-HMAC-SHA256',
+      'OSC4-HMAC-SHA256',
       this.datetime,
       this.credentialString,
       buf2hex(await hash(await this.canonicalString())),

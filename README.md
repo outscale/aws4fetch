@@ -1,6 +1,6 @@
 # aws4fetch
 
-<!-- [![Build Status](https://secure.travis-ci.org/mhart/aws4fetch.png?branch=master)](http://travis-ci.org/mhart/aws4fetch) -->
+/!\ This version has been adapted for Outscale API /!\
 
 A compact (6.4kb minified, 2.5kb gzipped) [AWS](https://aws.amazon.com/) client for environments that support
 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and

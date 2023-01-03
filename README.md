@@ -233,6 +233,7 @@ OR
 
 https://unpkg.com/aws4fetch@1.0.17/dist/aws4fetch.esm.mjs
 
+
 [UMD](https://github.com/umdjs/umd):
 
 https://unpkg.com/aws4fetch@1.0.17/dist/aws4fetch.umd.js
@@ -240,3 +241,7 @@ https://unpkg.com/aws4fetch@1.0.17/dist/aws4fetch.umd.js
 [CommonJS](https://requirejs.org/docs/commonjs.html):
 
 https://unpkg.com/aws4fetch@1.0.17/dist/aws4fetch.cjs.js
+
+# Contributing
+
+Feel free to open an issue to ask question or suggest improvements.

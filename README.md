@@ -1,7 +1,10 @@
 # aws4fetch
-[![Project Sandbox](https://docs.outscale.com/fr/userguide/_images/Project-Sandbox-yellow.svg)](https://docs.outscale.com/en/userguide/Open-Source-Projects.html)
+[![Project Archived](https://docs.outscale.com/en/userguide/_images/Project-Archived-red.svg)](https://docs.outscale.com/en/userguide/Open-Source-Projects.html)
+
+This project is now archived as [osc-sdk-js](https://gitlab.outscale.internal/ux/osc-sdk-js) can now use upstream aws4fetch.
 
 /!\ This version has been adapted for Outscale API /!\
+
 
 A compact (6.4kb minified, 2.5kb gzipped) [AWS](https://aws.amazon.com/) client for environments that support
 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and
